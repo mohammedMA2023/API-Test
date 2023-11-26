@@ -1,0 +1,18 @@
+Request Method: POST
+Request Params:{"width":"1920","time":"16.82","height":"1080","auth":"login","userid":"admin@admin.com","password":"Testacc1234.","sub":"Login"}
+User: admin@admin.com
+Cient IP: ::1
+Client Name: SF03LA18TL.shipley.ac.uk
+ Client Port: 59213
+ Client Platform: Windows
+ Client Accept Language: en-GB,en-US;q=0.9,en;q=0.8
+ Client Script URL: http://localhost/test/
+ Server Name: localhost
+ Server IP: ::1
+ Server Port: 80
+ Server Script Name: /test/login.php
+ Server Software: Apache/2.4.56 (Win64) OpenSSL/1.1.1t PHP/8.2.4Current Date: 20-11-2023 09:37:05
+
+ resolution: 1920 x 1080
+ time spent on site: 16.82 seconds
+
