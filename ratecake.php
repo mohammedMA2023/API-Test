@@ -147,10 +147,12 @@
   
   <br>
   <input type="hidden" name="auth" value="upload"/> 
-  <textarea name="review" rows="10" cols="50" placeholder="Enter the review..." required maxlength="255"></textarea>
   <br>
+  <textarea name="caption" rows="10" cols="50" placeholder="Enter your review..." required maxlength="255"></textarea>
+  
   <br>
-  <textarea name="caption" rows="10" cols="50" placeholder="Enter your caption..." required maxlength="255"></textarea>
+  <textarea name="review" rows="10" cols="50" placeholder="Enter the caption..." required maxlength="255"></textarea>
+  
   <br>
   <br>
   <input style="width:100%;" type="submit" value="Upload" />
@@ -182,87 +184,12 @@
                 </div>
             </div>
         </section>
-        <?php
-         function sanitiseString($str){
-          return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
+<div id="revs">
 
 
 
 
-
-
-         }
-
-
-         
-
-         $servername = "localhost";
-         $username = "root";
-         $password = "";
-         $dbName = "login_db";
-     
-         // Create connection
-         $conn = new mysqli($servername, $username, $password, $dbName);
-         if ($conn->connect_error) {;
-                 die();
-         }
-         $stmt = $conn->prepare("SELECT * FROM reviews ORDER BY review_id DESC");
-         
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        // output data of each row
-        while ($row = $result->fetch_assoc()) {
-            $file = sanitiseString($row["img"]);
-            
-            $file = "assets/uploads/".$file;
-            
-            $review = sanitiseString($row["review"]);
-            $likes = $row["likes"];
-            $captions = sanitiseString($row["captions"]);
-            
-            echo "
-            <section class='page-section cta'>
-                <div class='container'>
-                    <div class='row'>
-                        <div class='col-xl-9 mx-auto'>
-                            <div class='cta-inner bg-faded text-center rounded'>
-                                <div style='display: inline-block; text-align: center;'>
-                                    <img class='img-thumbnail rounded' style='background-color: #d2984f; max-width: 100%; height:100%;' src='" . $file . "'>
-                                    <h1>" . $captions . "</h1>
-                                    <h3>" . $review . "</h3>
-                                    <p>" . $likes . " Likes" . "</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            ";
-          
-                 
-        }
-    } else {
-      echo "
-            <section class='page-section cta'>
-                <div class='container'>
-                    <div class='row'>
-                        <div class='col-xl-9 mx-auto'>
-                            <div class='cta-inner bg-faded text-center rounded'>
-                                <div style='display: inline-block; text-align: center;'>
-                                  <h1>No posts found.</h1>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            ";
-      
-    }
-        ?>
-    
+</div>
         <footer class="footer text-faded text-center py-5">
             <div class="container"><p class="m-0 small">Copyright &copy; Your Website 2023</p></div>
         </footer>
@@ -271,15 +198,17 @@
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
     <script>
-             userImg.onchange = evt => {
-                            const [file] = userImg.files
-                            if (file) {
-                                blah.src = URL.createObjectURL(file)
-                                blah.hidden = false
-                            }
-                            }
+      // User Image Preview
+userImg.onchange = evt => {
+  const [file] = userImg.files;
+  if (file) {
+    blah.src = URL.createObjectURL(file);
+    blah.hidden = false;
+  }
+};
 
-    function validateTime() {
+// Time Validation Function
+function validateTime() {
   var selectedTime = document.getElementById('timepicker').value;
   var parts = selectedTime.split(':');
   var hours = parseInt(parts[0]);
@@ -292,14 +221,51 @@
     return false;
   } else {
     return true;
-
   }
 }
-let url = "localhost/api/fruit/get_name";
-fetch('http://localhost/api/Db/query')
+
+// Data Parsing Function
+ function disp(jsn) {
+  let obj = JSON.parse(jsn); // Correct variable name
+let revs = document.getElementById("revs");
+
+  revs.innerHTML = "";
+for (let i = 0; i < obj.length; i++) {
+    let file = '"assets/uploads/' + obj[i]["img"] + '"';
+    revs.innerHTML += `<section class='page-section cta'>
+                <div class='container'>
+                    <div class='row'>
+                        <div class='col-xl-9 mx-auto'>
+                            <div class='cta-inner bg-faded text-center rounded'>
+                                <div style='display: inline-block; text-align: center;'>
+                                    <img class='img-thumbnail rounded' style='background-color: #d2984f; max-width: 100%; height:100%;' src=` + file + `'>
+                                    <h1>` + obj[i]['captions'] + `</h1>
+                                    <h3>` + obj[i]["review"] + `</h3>
+                                    <p>` + obj[i]['likes'] + " Likes" + `</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            `;
+     
+   
+      
+  }
+
+}
+
+function show(){
+  fetch('http://10.201.209.94/api/Db/query')
   .then(response => response.text())
-  .then(text => console.log(text))
-  .catch(error => console.error('Error:', error));
+  .then(text => disp(text)) // Remove duplicate function definition
+  .catch(error => console.error('Error:', error));  
+
+
+
+}
+setInterval(show,100);
 
 
 
