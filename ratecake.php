@@ -105,7 +105,33 @@
 .open-popup:active {
   background-color: #ccc;
 }
+.heart-button {
+      position: relative;
+      width: 40px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: #f0f0f0;
+      cursor: pointer;
+    }
 
+    .heart-button:before {
+      content: '♥';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      color: #f0f0f0;
+      font-family: sans-serif;
+    }
+
+    .heart-button:hover {
+      background-color: #f5f5f5;
+    }
+
+    .is-liked .heart-button:before {
+      color: red;
+    }
 
     </style>
         <meta charset="utf-8" />
@@ -120,7 +146,7 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
     </head>
-    <body>
+    <body onload="show()">
     <?php 
         include "header.php";
     
@@ -237,12 +263,13 @@ for (let i = 0; i < obj.length; i++) {
                     <div class='row'>
                         <div class='col-xl-9 mx-auto'>
                             <div class='cta-inner bg-faded text-center rounded'>
-                                <div style='display: inline-block; text-align: center;'>
+                                <div>
                                     <img class='img-thumbnail rounded' style='background-color: #d2984f; max-width: 100%; height:100%;' src=` + file + `'>
                                     <h1>` + obj[i]['captions'] + `</h1>
                                     <h3>` + obj[i]["review"] + `</h3>
-                                    <p>` + obj[i]['likes'] + " Likes" + `</p>
-                                </div>
+                                    <button class="btn btn-primary heart-button"></button>
+
+                                    </div>
                             </div>
                         </div>
                     </div>
@@ -265,7 +292,7 @@ function show(){
 
 
 }
-setInterval(show,100);
+setInterval(show,5000);
 
 
 
