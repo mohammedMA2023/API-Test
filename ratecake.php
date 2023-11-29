@@ -109,7 +109,7 @@
       position: relative;
       width: 40px;
       height: 30px;
-      border-radius: 50%;
+      
       background-color: #f0f0f0;
       cursor: pointer;
     }
@@ -256,8 +256,10 @@ function validateTime() {
 let revs = document.getElementById("revs");
 
   revs.innerHTML = "";
-for (let i = 0; i < obj.length; i++) {
+   
+  for (let i = 0; i < obj.length; i++) {
     let file = '"assets/uploads/' + obj[i]["img"] + '"';
+    let id = "" + obj[i]["review_id"];
     revs.innerHTML += `<section class='page-section cta'>
                 <div class='container'>
                     <div class='row'>
@@ -267,7 +269,8 @@ for (let i = 0; i < obj.length; i++) {
                                     <img class='img-thumbnail rounded' style='background-color: #d2984f; max-width: 100%; height:100%;' src=` + file + `'>
                                     <h1>` + obj[i]['captions'] + `</h1>
                                     <h3>` + obj[i]["review"] + `</h3>
-                                    <button class="btn btn-primary heart-button"></button>
+                                    <button onclick="like(`+ id +`)" class="btn btn-primary heart-button"></button>
+                                    <h3 id=` + id + `>`+  obj[i]["likes"] + `</h3>
 
                                     </div>
                             </div>
@@ -294,7 +297,19 @@ function show(){
 }
 setInterval(show,5000);
 
+function like(id){
+  var likeCount = document.getElementById(id);
+  likeCount.innerHTML = parseFloat(likeCount.innerHTML) + 1;
+  fetch('http://10.201.209.94/api/db/like', {
+  method: 'POST',
+ 
+  body: JSON.stringify({ data: id })
+  
+})
+.then(response => console.log(response))
 
+  
+}
 
 
     </script>
