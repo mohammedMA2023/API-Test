@@ -207,7 +207,17 @@ case "upload":
     else {
          
     // Save the uloaded image file to a directory on the server
-    move_uploaded_file($image['tmp_name'], 'assets/uploads/' . $image['name']);
+    $inputString = $image['name'];
+// Generate a random salt
+$salt = bin2hex(random_bytes(16)); // Adjust the length of the salt as needed
+
+// Combine the input string and the salt
+$stringWithSalt = $inputString . $salt;
+
+// Hash the combined string
+$hash = hash("sha256", $stringWithSalt);
+
+    move_uploaded_file($image['tmp_name'], 'assets/uploads/' .$hash);
     $review = $_POST["review"];
     $caption = $_POST["caption"];
     $likes = 0;
