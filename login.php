@@ -195,7 +195,30 @@ exit();
 case "upload":
     $allowedFileTypes = array('image/jpg', 'image/png', 'image/gif','image/jpeg');
     $image = $_FILES['image'];
-    echo $image["type"];
+    $type = $image["type"];
+    $name = $image["name"];
+    $size = $image["size"];
+echo ' <table style="width: 50%; margin: 0 auto; border-collapse: collapse; margin-top: 20px;">
+        <tr>
+            <th style="border: 1px solid #dddddd; background-color: #f2f2f2; text-align: left; padding: 8px;">File Name</th>
+            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">' . $name . '</td>
+        </tr>
+        <tr>
+            <th style="border: 1px solid #dddddd; background-color: #f2f2f2; text-align: left; padding: 8px;">File Type</th>
+            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">' . $type . '</td>
+        </tr>
+        <tr>
+            <th style="border: 1px solid #dddddd; background-color: #f2f2f2; text-align: left; padding: 8px;">File Size</th>
+            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">' . $size . ' Bytes</td>
+        </tr>
+    </table>
+    <form action="ratecake.php" action="post">
+<input type="submit" value="Done">
+
+</form>
+
+';
+
     if (!in_array($image['type'], $allowedFileTypes)) {
         $_SESSION["error"] = "This file type is not supported.";
         
@@ -228,11 +251,10 @@ $hash = hash("sha256", $stringWithSalt);
     $stmt->bind_param("ssss", $image_name, $review,$likes,$caption);
      $stmt->execute();
 
-    header('Location:ratecake.php');
-    exit();
-} 
+    //header('Location:ratecake.php');
+    //exit();
+}
 
 
     }
-         
 ?>

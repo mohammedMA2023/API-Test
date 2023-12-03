@@ -11338,3 +11338,219 @@ Client Name: PC
  resolution:  0 x  0
  time spent on site:  0 seconds
 
+Request Method: POST
+Request Params:{"width":"1920","time":"19.491","height":"1080","auth":"login","userid":"admin@admin.com","password":"Testacc1234.","sub":"Login"}
+User: admin@admin.com
+Cient IP: ::1
+Client Name: PC
+ Client Port: 55570
+ Client Platform: Windows
+ Client Accept Language: en-GB,en;q=0.9,en-US;q=0.8
+ Client Script URL: http://localhost/API-Test/
+ Server Name: localhost
+ Server IP: ::1
+ Server Port: 80
+ Server Script Name: /API-Test/login.php
+ Server Software: Apache/2.4.56 (Win64) OpenSSL/1.1.1t PHP/8.2.4Current Date: 03-12-2023 21:13:38
+
+ resolution: 1920 x 1080
+ time spent on site: 19.491 seconds
+
+Request Method: POST
+Request Params:{"auth":"upload","caption":"test","review":"test","width":" 0","time":" 0","height":" 0","userid":"","password":""}
+User: 
+Cient IP: ::1
+Client Name: PC
+ Client Port: 55601
+ Client Platform: Windows
+ Client Accept Language: en-GB,en;q=0.9,en-US;q=0.8
+ Client Script URL: http://localhost/API-Test/ratecake.php
+ Server Name: localhost
+ Server IP: ::1
+ Server Port: 80
+ Server Script Name: /API-Test/login.php
+ Server Software: Apache/2.4.56 (Win64) OpenSSL/1.1.1t PHP/8.2.4Current Date: 03-12-2023 21:14:45
+
+ resolution:  0 x  0
+ time spent on site:  0 seconds
+
+Request Method: POST
+Request Params:{"width":"1920","time":"50.547","height":"1080","auth":"login","userid":"admin@admin.com","password":"Testacc1234.","sub":"Login"}
+User: admin@admin.com
+Cient IP: ::1
+Client Name: PC
+ Client Port: 55864
+ Client Platform: Windows
+ Client Accept Language: en-US,en;q=0.9
+ Client Script URL: http://localhost/API-Test/
+ Server Name: localhost
+ Server IP: ::1
+ Server Port: 80
+ Server Script Name: /API-Test/login.php
+ Server Software: Apache/2.4.56 (Win64) OpenSSL/1.1.1t PHP/8.2.4Current Date: 03-12-2023 21:34:05
+
+ resolution: 1920 x 1080
+ time spent on site: 50.547 seconds
+
+Request Method: POST
+Request Params:{"auth":"upload","caption":"test","review":"test","width":" 0","time":" 0","height":" 0","userid":"","password":""}
+User: 
+Cient IP: ::1
+Client Name: PC
+ Client Port: 55887
+ Client Platform: Windows
+ Client Accept Language: en-US,en;q=0.9
+ Client Script URL: http://localhost/API-Test/ratecake.php
+ Server Name: localhost
+ Server IP: ::1
+ Server Port: 80
+ Server Script Name: /API-Test/login.php
+ Server Software: Apache/2.4.56 (Win64) OpenSSL/1.1.1t PHP/8.2.4Current Date: 03-12-2023 21:35:44
+
+ resolution:  0 x  0
+ time spent on site:  0 seconds
+
+Request Method: POST
+Request Params:{"width":"","time":"","height":"","auth":"logout","userid":"","password":""}
+User: 
+Cient IP: ::1
+Client Name: PC
+ Client Port: 55910
+ Client Platform: Windows
+ Client Accept Language: en-US,en;q=0.9
+ Client Script URL: http://localhost/API-Test/ratecake.php
+ Server Name: localhost
+ Server IP: ::1
+ Server Port: 80
+ Server Script Name: /API-Test/login.php
+ Server Software: Apache/2.4.56 (Win64) OpenSSL/1.1.1t PHP/8.2.4Current Date: 03-12-2023 21:37:32
+
+ resolution:  x 
+ time spent on site:  seconds
+
+Request Method: POST
+Request Params:{"auth":"upload","caption":"test","review":"test","width":" 0","time":" 0","height":" 0","userid":"","password":""}
+User: 
+Cient IP: ::1
+Client Name: PC
+ Client Port: 56136
+ Client Platform: Windows
+ Client Accept Language: en-GB,en;q=0.9,en-US;q=0.8
+ Client Script URL: http://localhost/API-Test/ratecake.php
+ Server Name: localhost
+ Server IP: ::1
+ Server Port: 80
+ Server Script Name: /API-Test/login.php
+ Server Software: Apache/2.4.56 (Win64) OpenSSL/1.1.1t PHP/8.2.4Current Date: 03-12-2023 22:06:50
+
+ resolution:  0 x  0
+ time spent on site:  0 seconds
+
+Request Method: POST
+Request Params:{"auth":"upload","caption":"test","review":"test","width":" 0","time":" 0","height":" 0","userid":"","password":""}
+User: 
+Cient IP: ::1
+Client Name: PC
+ Client Port: 56157
+ Client Platform: Windows
+ Client Accept Language: en-GB,en;q=0.9,en-US;q=0.8
+ Client Script URL: http://localhost/API-Test/ratecake.php
+ Server Name: localhost
+ Server IP: ::1
+ Server Port: 80
+ Server Script Name: /API-Test/login.php
+ Server Software: Apache/2.4.56 (Win64) OpenSSL/1.1.1t PHP/8.2.4Current Date: 03-12-2023 22:10:07
+
+ resolution:  0 x  0
+ time spent on site:  0 seconds
+
+Request Method: POST
+Request Params:{"auth":"upload","caption":"test","review":"test","width":" 0","time":" 0","height":" 0","userid":"","password":""}
+User: 
+Cient IP: ::1
+Client Name: PC
+ Client Port: 56304
+ Client Platform: Windows
+ Client Accept Language: en-GB,en;q=0.9,en-US;q=0.8
+ Client Script URL: http://localhost/API-Test/ratecake.php
+ Server Name: localhost
+ Server IP: ::1
+ Server Port: 80
+ Server Script Name: /API-Test/login.php
+ Server Software: Apache/2.4.56 (Win64) OpenSSL/1.1.1t PHP/8.2.4Current Date: 03-12-2023 22:29:33
+
+ resolution:  0 x  0
+ time spent on site:  0 seconds
+
+Request Method: POST
+Request Params:{"auth":"upload","caption":"test","review":"test","width":" 0","time":" 0","height":" 0","userid":"","password":""}
+User: 
+Cient IP: ::1
+Client Name: PC
+ Client Port: 56322
+ Client Platform: Windows
+ Client Accept Language: en-GB,en;q=0.9,en-US;q=0.8
+ Client Script URL: http://localhost/API-Test/ratecake.php
+ Server Name: localhost
+ Server IP: ::1
+ Server Port: 80
+ Server Script Name: /API-Test/login.php
+ Server Software: Apache/2.4.56 (Win64) OpenSSL/1.1.1t PHP/8.2.4Current Date: 03-12-2023 22:34:31
+
+ resolution:  0 x  0
+ time spent on site:  0 seconds
+
+Request Method: POST
+Request Params:{"auth":"upload","caption":"test","review":"test","width":" 0","time":" 0","height":" 0","userid":"","password":""}
+User: 
+Cient IP: ::1
+Client Name: PC
+ Client Port: 56326
+ Client Platform: Windows
+ Client Accept Language: en-GB,en;q=0.9,en-US;q=0.8
+ Client Script URL: http://localhost/API-Test/ratecake.php
+ Server Name: localhost
+ Server IP: ::1
+ Server Port: 80
+ Server Script Name: /API-Test/login.php
+ Server Software: Apache/2.4.56 (Win64) OpenSSL/1.1.1t PHP/8.2.4Current Date: 03-12-2023 22:36:10
+
+ resolution:  0 x  0
+ time spent on site:  0 seconds
+
+Request Method: POST
+Request Params:{"auth":"upload","caption":"test","review":"test","width":" 0","time":" 0","height":" 0","userid":"","password":""}
+User: 
+Cient IP: ::1
+Client Name: PC
+ Client Port: 56412
+ Client Platform: Windows
+ Client Accept Language: en-GB,en;q=0.9,en-US;q=0.8
+ Client Script URL: http://localhost/API-Test/ratecake.php
+ Server Name: localhost
+ Server IP: ::1
+ Server Port: 80
+ Server Script Name: /API-Test/login.php
+ Server Software: Apache/2.4.56 (Win64) OpenSSL/1.1.1t PHP/8.2.4Current Date: 03-12-2023 22:54:45
+
+ resolution:  0 x  0
+ time spent on site:  0 seconds
+
+Request Method: POST
+Request Params:{"auth":"upload","caption":"test","review":"test","width":" 0","time":" 0","height":" 0","userid":"","password":""}
+User: 
+Cient IP: ::1
+Client Name: PC
+ Client Port: 56449
+ Client Platform: Windows
+ Client Accept Language: en-GB,en;q=0.9,en-US;q=0.8
+ Client Script URL: http://localhost/API-Test/ratecake.php
+ Server Name: localhost
+ Server IP: ::1
+ Server Port: 80
+ Server Script Name: /API-Test/login.php
+ Server Software: Apache/2.4.56 (Win64) OpenSSL/1.1.1t PHP/8.2.4Current Date: 03-12-2023 23:02:38
+
+ resolution:  0 x  0
+ time spent on site:  0 seconds
+
