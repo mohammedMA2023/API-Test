@@ -287,7 +287,7 @@ let revs = document.getElementById("revs");
 }
 
 function show(){
-  fetch('http://192.168.0.203/api/db/query')
+  fetch('http://10.201.209.94/api/db/query')
   .then(response => response.text())
   .then(text => disp(text)) // Remove duplicate function definition
   .catch(error => console.error('Error:', error));  
@@ -300,7 +300,7 @@ setInterval(show,5000);
 function like(id){
   var likeCount = document.getElementById(id);
   likeCount.innerHTML = parseFloat(likeCount.innerHTML) + 1;
-  fetch('http://192.168.0.203/api/db/like', {
+  fetch('http://10.201.209.94/api/db/like', {
   method: 'POST',
  
   body: JSON.stringify({ data: id })
