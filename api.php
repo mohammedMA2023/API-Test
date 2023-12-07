@@ -54,12 +54,24 @@ function like(){
 
         // Use prepared statement to prevent SQL injection
         $id = $data["data"];
+        $selectStmt = $conn->prepare("SELECT liked_by FROM reviews WHERE review_id = ?");
+        $selectStmt->bind_param("i", $id);
+        $selectStmt->execute();
+        $result = $selectStmt->get_result();
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $reviewerName = json_decode($row["liked_by"]);
+    $reviewerName[0] = 1;
+     
+
+    // Use the reviewer's name here
+}
         $stmt = $conn->prepare("UPDATE reviews SET likes = likes + 1 WHERE review_id = ?");
         $stmt->bind_param("i", $id);
 
         if ($stmt->execute()) {
-            stmt->execute();
-            echo json_encode(["success" => true]);
+            $stmt->execute();
+            echo $reviewerName;
         } else {
             echo json_encode(["success" => false, "error" => $stmt->error]);
         }
@@ -76,4 +88,3 @@ $db = new Db();
 eval("$" . strtolower($class) . "->" . $method . "();");
 
 ?>
-
