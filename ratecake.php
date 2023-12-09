@@ -7,7 +7,7 @@
 
 #popupContainer {
     transition: opacity 0.3s;
-        
+
     display:none;
   /* Make popup responsive */
   width: 90%;
@@ -106,32 +106,15 @@
   background-color: #ccc;
 }
 .heart-button {
+
       position: relative;
       width: 40px;
       height: 30px;
-      
-      background-color: #f0f0f0;
+
+      background-color: white;
       cursor: pointer;
     }
 
-    .heart-button:before {
-      content: '♥';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 24px;
-      color: #f0f0f0;
-      font-family: sans-serif;
-    }
-
-    .heart-button:hover {
-      background-color: #f5f5f5;
-    }
-
-    .is-liked .heart-button:before {
-      color: red;
-    }
 
     </style>
         <meta charset="utf-8" />
@@ -147,10 +130,10 @@
         <link href="css/styles.css" rel="stylesheet" />
     </head>
     <body onload="show()">
-    <?php 
+    <?php
         include "header.php";
-    
-    ?>    
+
+    ?>
 
 
 <section class="page-section cta">
@@ -162,7 +145,7 @@
                                 <span class="section-heading-upper">Don't Wanna Wait?</span>
                                 <span class="section-heading-lower">Rate My Cake</span>
                             </h2>
-    
+
 <div style="display: inline-block; text-align: center;">
 <form action="login.php" method="post" enctype="multipart/form-data">
 <img id="blah" class="img-thumbnail rounded" style="background-color: #d2984f; max-width: 100%;" src="#" hidden>
@@ -170,15 +153,15 @@
   <br>
 <input style="width:100%;" id="userImg" type="file" name="image" />
   <br>
-  
+
   <br>
-  <input type="hidden" name="auth" value="upload"/> 
+  <input type="hidden" name="auth" value="upload"/>
   <br>
   <textarea name="caption" rows="10" cols="50" placeholder="Enter your review..." required maxlength="255"></textarea>
-  
+
   <br>
   <textarea name="review" rows="10" cols="50" placeholder="Enter the caption..." required maxlength="255"></textarea>
-  
+
   <br>
   <br>
   <input style="width:100%;" type="submit" value="Upload" />
@@ -186,20 +169,20 @@
 		<input type="hidden" id="time" name="time" value=" 0">
 		<input type="hidden" id="height" name="height" value=" 0">
 	  <input type="hidden" name="userid" placeholder="Enter your email..."><br>
-		
+
     <input type="hidden" name="password" placeholder="Enter your password"><br>
 <!-- This is the Image preview window -->
 
 
 </form>
 </div>
-<?php  
+<?php
   if ((isset($_SESSION["error"])) && ($_SESSION["error"])){
     echo $_SESSION["error"];
     $_SESSION["error"] = "";
 
 
-  } 
+  }
 
 
 
@@ -256,20 +239,37 @@ function validateTime() {
 let revs = document.getElementById("revs");
 
   revs.innerHTML = "";
-   
+
   for (let i = 0; i < obj.length; i++) {
     let file = '"assets/uploads/' + obj[i]["img"] + '"';
     let id = "" + obj[i]["review_id"];
+    let lId = "button-"+id;
+    const myArray = JSON.parse(obj[i]["liked_by"]);
+const elementToCheck = getCookie("userid");
+
+const foundElement = myArray.find(item => item === elementToCheck);
+
+var likeValue;
+if (foundElement !== undefined) {
+   likeValue = "❤️";
+} else {
+  likeValue = "💙";
+
+}
     revs.innerHTML += `<section class='page-section cta'>
                 <div class='container'>
                     <div class='row'>
                         <div class='col-xl-9 mx-auto'>
                             <div class='cta-inner bg-faded text-center rounded'>
                                 <div>
-                                    <img class='img-thumbnail rounded' style='background-color: #d2984f; max-width: 100%; height:100%;' src=` + file + `'>
+                                    <img class='img-thumbnail rounded' style='width: 500%; height: 500%;'  src=` + file + `'>
+                                    <br>
+                                    <br>
                                     <h1>` + obj[i]['captions'] + `</h1>
                                     <h3>` + obj[i]["review"] + `</h3>
-                                    <button onclick="like(`+ id +`)" class="btn btn-primary heart-button"></button>
+                                    <br>
+                                    <br>
+                                    <button><h2 id="`+lId+`" onclick="like(`+ id +`)" class="heart-button">` + likeValue + `</h2></button>
                                     <h3 id=` + id + `>`+  obj[i]["likes"] + `</h3>
 
                                     </div>
@@ -279,39 +279,65 @@ let revs = document.getElementById("revs");
                 </div>
             </section>
             `;
-     
-   
-      
+
+
+
   }
 
 }
 
 function show(){
-  fetch('http://10.201.209.94/api/db/query')
+  fetch('http://192.168.0.203/api/db/query')
   .then(response => response.text())
   .then(text => disp(text)) // Remove duplicate function definition
-  .catch(error => console.error('Error:', error));  
+  .catch(error => console.error('Error:', error));
 
 
 
 }
 setInterval(show,5000);
+function getCookie(name) {
+    // Create a regular expression to search for the cookie name in the document.cookie string
+    const regex = new RegExp(`(?:^|;\\s*)${name}=([^;]*)`);
 
-function like(id){
-  var likeCount = document.getElementById(id);
-  likeCount.innerHTML = parseFloat(likeCount.innerHTML) + 1;
-  fetch('http://10.201.209.94/api/db/like', {
-  method: 'POST',
- 
-  body: JSON.stringify({ data: id })
-  
-})
-.then(response => console.log(response));
+    // Use the match method to find the value of the cookie
+    const match = document.cookie.match(regex);
 
-  
+    // Return the cookie value if found, otherwise return null
+    return match ? decodeURIComponent(match[1]) : null;
 }
 
+// Example: Get the value of a cookie named "userid"
+function l(id,action){
+      var likeCount = document.getElementById(id);
+      var lId = "button-"+""+id;
 
+      var likeButton = document.getElementById(lId);
+
+
+    if (action === "like"){
+      likeCount.innerHTML = parseFloat(likeCount.innerHTML) + 1;
+      likeButton.innerHTML = "❤️";
+  }
+  if (action === "unlike"){
+      likeCount.innerHTML = parseFloat(likeCount.innerHTML) - 1;
+      likeButton.innerHTML = "💙";
+  }
+
+
+}
+
+function like(id) {
+  const userIdValue = getCookie("userid");
+
+  fetch('http://192.168.0.203/api/db/like', {
+    method: 'POST',
+    body: JSON.stringify({ data: id, uid: userIdValue })
+  })
+    .then(response => response.text()) // This returns a Promise
+    .then(data => l(id, data)) // Handle the resolved value (text content)
+    .catch(error => console.error('Fetch error:', error));
+}
     </script>
     </body>
 </html>
