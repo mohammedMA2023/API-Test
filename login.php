@@ -184,6 +184,6 @@ break;
     }
 $_SESSION["status"] = $status;
 $conn->close();
-//header("location:".$header);
-//exit();
+header("location:".$header);
+exit();
 ?>

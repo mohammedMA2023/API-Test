@@ -160,6 +160,8 @@
   <textarea name="caption" rows="10" cols="50" placeholder="Enter your review..." required maxlength="255"></textarea>
 
   <br>
+  <br>
+
   <textarea name="review" rows="10" cols="50" placeholder="Enter the caption..." required maxlength="255"></textarea>
 
   <br>
@@ -199,9 +201,9 @@
 
 
 </div>
-        <footer class="footer text-faded text-center py-5">
-            <div class="container"><p class="m-0 small">Copyright &copy; Your Website 2023</p></div>
-        </footer>
+        <?php
+            include "footer.php";
+        ?>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
@@ -238,7 +240,7 @@ function validateTime() {
   let obj = JSON.parse(jsn); // Correct variable name
 let revs = document.getElementById("revs");
 
-  revs.innerHTML = "";
+  let content = "";
 
   for (let i = 0; i < obj.length; i++) {
     let file = '"assets/uploads/' + obj[i]["img"] + '"';
@@ -256,34 +258,38 @@ if (foundElement !== undefined) {
   likeValue = "💙";
 
 }
-    revs.innerHTML += `<section class='page-section cta'>
-                <div class='container'>
-                    <div class='row'>
-                        <div class='col-xl-9 mx-auto'>
-                            <div class='cta-inner bg-faded text-center rounded'>
-                                <div>
-                                    <img class='img-thumbnail rounded' style='width: 500%; height: 500%;'  src=` + file + `'>
-                                    <br>
-                                    <br>
-                                    <h1>` + obj[i]['captions'] + `</h1>
-                                    <h3>` + obj[i]["review"] + `</h3>
-                                    <br>
-                                    <br>
-                                    <button><h2 id="`+lId+`" onclick="like(`+ id +`)" class="heart-button">` + likeValue + `</h2></button>
-                                    <h3 id=` + id + `>`+  obj[i]["likes"] + `</h3>
-
-                                    </div>
-                            </div>
-                        </div>
+    content += `<section class='page-section cta' style="margin-top: 20px; position: relative;">
+    <div class='container'>
+        <div class='row'>
+            <div class='col-xl-9 mx-auto'>
+                <div style="position: absolute; top: 0; right: 0; padding: 10px; background-color: #f00; color: #fff;">
+                        <!-- Content for the new element -->
+                        <h2>`+obj[i]["time"]+`</h2>
                     </div>
+
+                <div class='cta-inner bg-faded text-center rounded'>
+                    <!-- New element added to the top right -->
+
+                    <img class='img-thumbnail rounded' style='width: 500%; height: 500%;'  src=` + file + `'>
+                    <br>
+                    <br>
+                    <h1 style="color: #000;">` + obj[i]['captions'] + `</h1>
+                    <h3 style="color: #000;">` + obj[i]["review"] + `</h3>
+                    <br>
+                    <br>
+                    <button><h2 id="`+lId+`" onclick="like(`+ id +`)" class="heart-button" style="color: #fff;">` + likeValue + `</h2></button>
+                    <h3 id=` + id + ` style="color: #000;">`+  obj[i]["likes"] + `</h3>
                 </div>
-            </section>
-            `;
+            </div>
+        </div>
+    </div>
+</section>
+`;
 
 
 
   }
-
+    revs.innerHTML = content;
 }
 
 function show(){
