@@ -293,7 +293,7 @@ if (foundElement !== undefined) {
 }
 
 function show(){
-  fetch('http://192.168.0.203/api/db/query')
+  fetch('http://10.201.209.94/api/db/query')
   .then(response => response.text())
   .then(text => disp(text)) // Remove duplicate function definition
   .catch(error => console.error('Error:', error));
@@ -336,7 +336,7 @@ function l(id,action){
 function like(id) {
   const userIdValue = getCookie("userid");
 
-  fetch('http://192.168.0.203/api/db/like', {
+  fetch('http://10.201.209.94/api/db/like', {
     method: 'POST',
     body: JSON.stringify({ data: id, uid: userIdValue })
   })
