@@ -27,6 +27,12 @@ class Db {
 
 
       while ($row = $result->fetch_assoc()) {
+          $timestampFromDatabase = $ro
+
+          w['time'];
+$formattedTime = (new DateTime($timestampFromDatabase))->format('d/m/Y H:i:s');
+$row["time"] = $formattedTime;
+
           $table[] = $row;
 
 
@@ -54,6 +60,8 @@ function like(){
 
         // Use prepared statement to prevent SQL injection
         $id = $data["data"];
+        $uid = $data["uid"];
+        //echo print_r($uid);
         $selectStmt = $conn->prepare("SELECT liked_by FROM reviews WHERE review_id = ?");
         $selectStmt->bind_param("i", $id);
         $selectStmt->execute();
@@ -61,30 +69,40 @@ function like(){
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $reviewerName = json_decode($row["liked_by"]);
-    $reviewerName[0] = 1;
-     
+    if (in_array($uid,$reviewerName)){
+        $originalArray = $reviewerName;
 
-    // Use the reviewer's name here
-}
-        $stmt = $conn->prepare("UPDATE reviews SET likes = likes + 1 WHERE review_id = ?");
-        $stmt->bind_param("i", $id);
+// Element to remove
+$elementToRemove = $uid;
 
-        if ($stmt->execute()) {
-            $stmt->execute();
-            echo $reviewerName;
-        } else {
-            echo json_encode(["success" => false, "error" => $stmt->error]);
-        }
-    } else {
-        echo json_encode(["success" => false, "error" => "Missing 'data' in the request"]);
+// Use array_filter to remove the specified element
+$filteredArray = array_filter($originalArray, function ($value) use ($elementToRemove) {
+    return $value != $elementToRemove;
+});
+
+// Reset array keys if needed
+$filteredArray = array_values($filteredArray);
+$filteredArray = json_encode($filteredArray);
+
+        $stmt = $conn->prepare("UPDATE reviews SET likes = likes - 1, liked_by = ? WHERE review_id = ?");
+        $stmt->bind_param("ss",$filteredArray, $id);
+        $stmt->execute();
+
+        echo "unlike";
+    }
+    else{
+    array_push($reviewerName,$uid);
+    $reviewerName = json_encode($reviewerName);
+        $stmt = $conn->prepare("UPDATE reviews SET likes = likes + 1, liked_by = ? WHERE review_id = ?");
+        $stmt->bind_param("ss",$reviewerName, $id);
+        $stmt->execute();
+        echo "like";
+    }
+
+    }
     }
 }
-
-
 }
-
-
 $db = new Db();
 eval("$" . strtolower($class) . "->" . $method . "();");
-
 ?>
