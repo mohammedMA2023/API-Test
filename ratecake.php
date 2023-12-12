@@ -247,9 +247,9 @@ let revs = document.getElementById("revs");
     let id = "" + obj[i]["review_id"];
     let lId = "button-"+id;
     const myArray = JSON.parse(obj[i]["liked_by"]);
-const elementToCheck = getCookie("userid");
+const elementToCheck = parseInt(getCookie("userid"));
 
-const foundElement = myArray.find(item => item === elementToCheck);
+const foundElement = (myArray.find(item => item === elementToCheck));
 
 var likeValue;
 if (foundElement !== undefined) {
@@ -277,8 +277,8 @@ if (foundElement !== undefined) {
                     <h3 style="color: #000;">` + obj[i]["review"] + `</h3>
                     <br>
                     <br>
-                    <button><h2 id="`+lId+`" onclick="like(`+ id +`)" class="heart-button" style="color: #fff;">` + likeValue + `</h2></button>
-                    <h3 id=` + id + ` style="color: #000;">`+  obj[i]["likes"] + `</h3>
+                    <button id="`+lId+`" onclick="like(`+ id +`)" class="heart-button" style="color: #fff;">` + likeValue + `</button>
+                    <h2 id=` + id + ` style="color: #000;">`+  obj[i]["likes"] + `</h2>
                 </div>
             </div>
         </div>
@@ -292,6 +292,7 @@ if (foundElement !== undefined) {
     revs.innerHTML = content;
 }
 
+
 function show(){
   fetch('http://10.201.209.94/api/db/query')
   .then(response => response.text())
@@ -303,14 +304,9 @@ function show(){
 }
 setInterval(show,5000);
 function getCookie(name) {
-    // Create a regular expression to search for the cookie name in the document.cookie string
-    const regex = new RegExp(`(?:^|;\\s*)${name}=([^;]*)`);
+  let uId = <?php echo json_encode($_SESSION["userid"])?>;
+  return uId;
 
-    // Use the match method to find the value of the cookie
-    const match = document.cookie.match(regex);
-
-    // Return the cookie value if found, otherwise return null
-    return match ? decodeURIComponent(match[1]) : null;
 }
 
 // Example: Get the value of a cookie named "userid"

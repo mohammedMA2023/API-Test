@@ -64,19 +64,11 @@ session_start();
                 $header = "home.php";
                 echo json_encode($row);
                 $newUserID = $row["id"];
-                echo $newUserID;
                 
-                if (!isset($COOKIE["userid"])){
-                setcookie("userid", $newUserID, time() + 60 * 60 * 24 * 365);
-                echo $newUserID;
-            }
-            else{
-                echo $_COOKIE["userid"];
-                echo $newUserID;    
-
-
-            }
-            
+                if (!isset($_SESSION["userid"])){
+                    $_SESSION["userid"] = $newUserID;
+                }
+                        
 } else {
                 $status = "loggedOut";
                 $_SESSION['error'] = "Error: these details are incorrect. Please try again.";
@@ -130,9 +122,8 @@ session_start();
                     $status = "loggedIn";
                     $header = "home.php";
                     $newUserId = mysqli_insert_id($conn); 
-                    echo $newUserId;
-                    setcookie("userid", $newUserId, time() + 60 * 60 * 24 * 365);
-
+                    
+                    $_SESSION["userid"] = $newUserID;
                 }
         }       
             }           
