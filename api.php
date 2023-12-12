@@ -32,7 +32,7 @@ class Db {
             $table[] = $row;
         }
 
-        echo "none";
+        echo json_encode($table);
     }
 
     function like() {
