@@ -243,9 +243,7 @@ function validateTime() {
 
 // Data Parsing Function
  function disp(jsn) {
-  let obj = JSON.parse(jsn); // Correct variable name
-
-
+  let obj = jsn; // Correct variable name
 let revs = document.getElementById("revs");
 
   let content = "";
@@ -254,7 +252,8 @@ let revs = document.getElementById("revs");
     let file = '"assets/uploads/' + obj[i]["img"] + '"';
     let id = "" + obj[i]["review_id"];
     let lId = "button-"+id;
-    let likeValue = "❤️";
+    
+var likeValue = "❤️"
     content += `<section class='page-section cta' style="margin-top: 20px; position: relative;">
     <div class='container'>
         <div class='row'>
@@ -288,15 +287,19 @@ let revs = document.getElementById("revs");
   }
     revs.innerHTML = content;
 
-}
+  
+  }
 
 
 function show(){
   let userId = getCookie("userid");
-  fetch('http://10.201.209.94/api/db/query')
-  .then(response => response.text())
-  .then(text => disp(text))
-   .catch(error => console.error('Error:', error));
+  fetch('http://10.201.209.94/api/db/query',{
+    method: 'POST',
+    body: JSON.stringify({uid:1})
+  })
+  .then(response => response.json())
+  .then(data => disp(data)) // Remove duplicate function definition
+  .catch(error => console.error('Error:', error));
 
 
 

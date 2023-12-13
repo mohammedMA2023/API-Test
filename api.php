@@ -24,7 +24,9 @@ class Db {
         $result = $stmt->get_result();
 
         $table = [];
-
+        $raw_data = file_get_contents("php://input");
+        $data = json_decode($raw_data, true);
+    
         while ($row = $result->fetch_assoc()) {
             $timestampFromDatabase = $row['time'];
             $formattedTime = (new DateTime($timestampFromDatabase))->format('d/m/Y H:i:s');
@@ -32,9 +34,22 @@ class Db {
             $table[] = $row;
         }
 
-        echo "none";
+        echo json_encode($table);
     }
 
+    function checkLike($revId,$uid){
+        $conn = $this->conn();
+        $selectStmt = $conn->prepare("SELECT * FROM posts WHERE rev = ? AND user = ?");
+        $selectStmt->bind_param("ii", $revId, $uid);
+        $selectStmt->execute();
+        $result = $selectStmt->get_result();
+        return $result; 
+
+
+
+
+
+    }
     function like() {
         $raw_data = file_get_contents("php://input");
         $data = json_decode($raw_data, true);
@@ -48,11 +63,7 @@ class Db {
                 if ($intValue === false || $id === false) {
                     echo "failed";
                 } else {
-                    $selectStmt = $conn->prepare("SELECT * FROM posts WHERE rev = ? AND user = ?");
-                    $selectStmt->bind_param("ii", $id, $intValue);
-                    $selectStmt->execute();
-                    $result = $selectStmt->get_result();
-
+                    $result = $this->checkLike($id,$intValue);                   
                     if ($result->num_rows > 0) {
                         $stmt = $conn->prepare("DELETE FROM posts WHERE rev = ? AND user = ?");
                         $stmt->bind_param("ii", $id, $intValue);
