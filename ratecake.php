@@ -210,7 +210,13 @@
         <script src="js/scripts.js"></script>
     <script>
       // User Image Preview
-userImg.onchange = evt => {
+      function getCookie(name) {
+  let uId = <?php echo $_SESSION["userid"]?>;
+  return uId;
+
+}
+
+      userImg.onchange = evt => {
   const [file] = userImg.files;
   if (file) {
     blah.src = URL.createObjectURL(file);
@@ -227,7 +233,7 @@ function validateTime() {
 
   // Restrict to 9 am to 5:30 pm
   if (hours < 9 || (hours === 17 && minutes > 30) || hours > 17) {
-    alert('Please select a time between 9:00 am and 5:30 pm.');
+    alert('Please select a time between 9:00 am and 5:30 pm.')
     document.getElementById('timepicker').value = ''; // Clear the input
     return false;
   } else {
@@ -286,7 +292,8 @@ let revs = document.getElementById("revs");
 
 
 function show(){
-  fetch('http://192.168.0.203/api/db/query')
+  let userId = getCookie("userid");
+  fetch('http://10.201.209.94/api/db/query')
   .then(response => response.text())
   .then(text => disp(text))
    .catch(error => console.error('Error:', error));
@@ -295,11 +302,6 @@ function show(){
 
 }
 setInterval(show,5000);
-function getCookie(name) {
-  let uId = <?php echo json_encode($_SESSION["userid"])?>;
-  return uId;
-
-}
 
 // Example: Get the value of a cookie named "userid"
 function l(id,action){
@@ -324,9 +326,9 @@ function l(id,action){
 function like(id) {
   const userIdValue = getCookie("userid");
 
-  fetch('http://192.168.0.203/api/db/like', {
+  fetch('http://10.201.209.94/api/db/like', {
     method: 'POST',
-    body: JSON.stringify({ data: id, uid: userIdValue })
+    body: JSON.stringify({ data: id, uid: userIdValue})
   })
     .then(response => response.text()) // This returns a Promise
     .then(data => l(id, data)) // Handle the resolved value (text content)
