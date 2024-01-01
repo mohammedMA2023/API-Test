@@ -141,20 +141,18 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
-    <script>
-    var items = [];
+    <script>var items = [];
 
-    function getMenu(){
+        function getMenu() {
+            fetch("http://192.168.0.203/api/db/getMenu")
+                .then(response => response.json())
+                .then(data => displayPopup(data));
+        }
 
-        fetch("http://192.168.0.203/api/db/getMenu")
-        .then(response => response.json())
-        .then(data => displayPopup(data));
-}
-     function getCookie() {
-  let uId = <?php echo $_SESSION["userid"]?>;
-  return uId;
-
-}
+        function getCookie() {
+            let uId = <?php echo $_SESSION["userid"] ?>;
+            return uId;
+        }
 
         function orderItem(item) {
             alert('You selected: ' + item);
@@ -163,57 +161,42 @@
 
         function displayPopup(menu) {
             let popupContainer = document.getElementById('popupContainer');
-            let obj = menu; // Correct variable name
-let revs = document.getElementById("foodAndDrinksSelection");
- let content = "";
-revs.innerHTML = "";
-revs.innerHTML += `<option value="" selected></option>
-            `;
-  for (let i = 0; i < obj.length; i++){
-
-    content += `<option value="`+obj[i]["product_id"] +`">`+ obj[i]["product_name"] + " (£" + obj[i]["price"] + ")" +`</option>
-            `;
-}
-    revs.innerHTML += content;
-    popupContainer.style.display = 'block';
-
+            let obj = menu;
+            let revs = document.getElementById("foodAndDrinksSelection");
+            let content = "";
+            revs.innerHTML = "";
+            revs.innerHTML += `<option value="" selected></option>`;
+            for (let i = 0; i < obj.length; i++) {
+                content += `<option value="` + obj[i]["product_id"] + `">` + obj[i]["product_name"] + " (£" + obj[i]["price"] + ")" + `</option>`;
+            }
+            revs.innerHTML += content;
+            popupContainer.style.display = 'block';
         }
 
         function hidePopup() {
             document.getElementById('popupContainer').style.display = 'none';
         }
 
-      function addItem(){
-
+        function addItem() {
             var selectedColor = document.getElementById("foodAndDrinksSelection");
-
-            // Get the selected option
             var selectedOption = selectedColor.options[selectedColor.selectedIndex];
-
-            // Get the id of the selected option
             var selectedId = selectedOption.value;
-            if (selectedOption.text){
-            items.push(selectedId);
+            if (selectedOption.text) {
+                items.push(selectedId);
             }
-
-
-     }
-
-
-     function order(){
-        let userIdValue = getCookie();
-        if (items.length > 0){
-            fetch('http://192.168.0.203/api/db/basket', {
-    method: 'POST',
-    body: JSON.stringify({uid: userIdValue,items:items})
-  })
-
-}
         }
-        hidePopup();
 
-     }
-    </script>
+        function order() {
+            let userIdValue = getCookie();
+            if (items.length > 0) {
+                fetch('http://192.168.0.203/api/db/basket', {
+                    method: 'POST',
+                    body: JSON.stringify({ uid: userIdValue, items: items })
+                });
+            }
+            hidePopup(); // Move this line inside the order function
+        }
+        </script>
 </body>
 
 </html>

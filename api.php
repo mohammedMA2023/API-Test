@@ -171,11 +171,11 @@ class Db {
     $stmt->execute();
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
-    $price = $row ? $row['price'] : null;
+    $price = $row['price'];
     $stmt->close();
-    $stmt = $conn->prepare("INSERT INTO basket (user_id, product_id, quantity) VALUES (?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO basket (user_id, product_id, quantity,price) VALUES (?, ?, ?,?)");
     $quantity = 1; // replace with the actual quantity
-    $stmt->bind_param("iii", $uid, $currItem, $quantity);
+    $stmt->bind_param("iiii", $uid, $currItem, $quantity,$price);
     $stmt->execute();
 
 
@@ -183,6 +183,42 @@ class Db {
 
 
    }
+  function getBasket(){
+           $conn = $this->conn;
+       $raw_data = file_get_contents("php://input");
+       $data = json_decode($raw_data, true);
+
+        $uid = filter_var($data["uid"], FILTER_VALIDATE_INT);
+
+        $stmt = $conn->prepare("INSERT INTO messages (user_id,message_text,username) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $uid, $message,$username);
+        $stmt->execute();
+
+
+
+        $conn = $this->conn;
+        $stmt = $conn->prepare("SELECT * FROM basket WHERE product_id = ?");
+        $stmt->bind_param("i",$uid);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $table = [[]];
+
+        while ($row = $result->fetch_assoc()) {
+        $sql = "SELECT SUM(price) AS total_price FROM your_table_name";
+        $result = mysqli_query($your_mysql_connection, $sql);
+        $row = mysqli_fetch_assoc($result);
+        $totalPrice = $row['total_price'];
+
+
+        $table[0][] = $row;
+        }
+
+        echo json_encode($table);
+
+
+
+  }
 }
 
 $db = new Db();
