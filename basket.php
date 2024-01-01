@@ -70,6 +70,39 @@
         #popupContainer button:hover {
             background-color: #0056b3;
         }
+
+        .basket-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #ced4da;
+        }
+
+        .basket-item img {
+            max-width: 80px;
+            max-height: 80px;
+            margin-right: 1rem;
+        }
+
+        .total {
+            text-align: right;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .checkout-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .checkout-btn:hover {
+            background-color: #0056b3;
+        }
     </style>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -97,10 +130,34 @@
                         <!-- Combined Menu -->
 
                         <!-- Pre-Order Button -->
-                        <div class="menu-item" onclick='getMenu()'>
-                            <h3>Pre-Order Food and Drinks</h3>
-                            <p>Plan your visit by pre-ordering your favorites.</p>
+
+
+                        <!-- Basket Section -->
+                        <div class="basket-item">
+                            <img src="coffee1.jpg" alt="Coffee Product">
+                            <div>
+                                <h3>Specialty Coffee Blend</h3>
+                                <p>Quantity: 2</p>
+                                <p>Price: $10.99 each</p>
+                            </div>
+                            <p>$21.98</p>
                         </div>
+
+                        <div class="basket-item">
+                            <img src="tea1.jpg" alt="Tea Product">
+                            <div>
+                                <h3>Herbal Tea Assortment</h3>
+                                <p>Quantity: 1</p>
+                                <p>Price: $7.99 each</p>
+                            </div>
+                            <p>$7.99</p>
+                        </div>
+
+                        <div class="total">
+                            <p>Total: $29.97</p>
+                        </div>
+
+                        <button class="checkout-btn">Proceed to Checkout</button>
 
                     </div>
                 </div>
@@ -114,7 +171,7 @@
 
         <label for="foodAndDrinksSelection">Select Food and Drinks:</label>
         <select id="foodAndDrinksSelection" name="foodAndDrinksSelection" onchange="addItem()">
-            </select>
+        </select>
 
         <label for="datepicker">Select Date:</label>
         <input type="date" id="datepicker" name="datepicker">
@@ -122,14 +179,8 @@
         <label for="timepicker">Select Time:</label>
         <input type="time" id="timepicker" name="timepicker">
 
-        <button onclick="order()">Pre-Order Now</button>
+        <button onclick="hidePopup()">Pre-Order Now</button>
     </div>
-
-    <section class="page-section about-heading">
-        <div class="container">
-            <!-- ... (your existing about section) ... -->
-        </div>
-    </section>
 
     <footer class="footer text-faded text-center py-5">
         <div class="container">
@@ -142,49 +193,32 @@
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
     <script>
-    var items = [];
-
-    function getMenu(){
-
-        fetch("http://192.168.0.203/api/db/getMenu")
-        .then(response => response.json())
-        .then(data => displayPopup(data));
-}
-     function getCookie() {
-  let uId = <?php echo $_SESSION["userid"]?>;
-  return uId;
-
-}
-
-        function orderItem(item) {
-            alert('You selected: ' + item);
-            // Add your logic for processing the order or navigating to a detailed menu page
-        }
-
         function displayPopup(menu) {
             let popupContainer = document.getElementById('popupContainer');
             let obj = menu; // Correct variable name
-let revs = document.getElementById("foodAndDrinksSelection");
- let content = "";
-revs.innerHTML = "";
-revs.innerHTML += `<option value="" selected></option>
-            `;
-  for (let i = 0; i < obj.length; i++){
+            let revs = document.getElementById("foodAndDrinksSelection");
+            let content = "";
 
-    content += `<option value="`+obj[i]["product_id"] +`">`+ obj[i]["product_name"] + " (£" + obj[i]["price"] + ")" +`</option>
-            `;
-}
-    revs.innerHTML += content;
-    popupContainer.style.display = 'block';
+            for (let i = 0; i < obj.length; i++) {
+                content += `<option value="` + obj[i]["product_id"] + `">` + obj[i]["product_name"] + " (£" + obj[i]["price"] + ")" + `</option>`;
+            }
 
+            revs.innerHTML = content;
+            popupContainer.style.display = 'block';
+        }
+
+        function getMenu() {
+            fetch("http://192.168.0.203/api/db/getMenu")
+                .then(response => response.json())
+                .then(data => displayPopup(data));
         }
 
         function hidePopup() {
             document.getElementById('popupContainer').style.display = 'none';
         }
 
-      function addItem(){
-
+        var items = [];
+        function addItem() {
             var selectedColor = document.getElementById("foodAndDrinksSelection");
 
             // Get the selected option
@@ -192,27 +226,9 @@ revs.innerHTML += `<option value="" selected></option>
 
             // Get the id of the selected option
             var selectedId = selectedOption.value;
-            if (selectedOption.text){
             items.push(selectedId);
-            }
-
-
-     }
-
-
-     function order(){
-        let userIdValue = getCookie();
-        if (items.length > 0){
-            fetch('http://192.168.0.203/api/db/basket', {
-    method: 'POST',
-    body: JSON.stringify({uid: userIdValue,items:items})
-  })
-
-}
+            alert(JSON.stringify(items));
         }
-        hidePopup();
-
-     }
     </script>
 </body>
 

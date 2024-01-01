@@ -46,9 +46,10 @@ session_start();
     $hashedPassword = password_hash($uPass, PASSWORD_BCRYPT);
     switch ($_POST['auth']){
         case "login":
+
             // Use prepared statement to query the database
     $uName = $_POST["userid"];
-            $stmt = $conn->prepare("SELECT id,email, u_pass FROM $dbTable WHERE email = ?");
+    $stmt = $conn->prepare("SELECT id,email, u_pass FROM $dbTable WHERE email = ?");
     $stmt->bind_param("s", $uName);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -62,7 +63,7 @@ session_start();
             if ((password_verify($uPass, $storedHashedPassword)) && ($uName == $row["email"]) ) {
                 $status = "loggedIn";
                 $header = "home.php";
-                echo json_encode($row);
+
                 $newUserID = $row["id"];
                 
                 if (!isset($_SESSION["userid"])){
@@ -83,6 +84,7 @@ session_start();
 	}
     break;
     case "reg":
+
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $password = $_POST["password"]; 
             // Assess password security
@@ -123,7 +125,7 @@ session_start();
                     $header = "home.php";
                     $newUserId = mysqli_insert_id($conn); 
                     
-                    $_SESSION["userid"] = $newUserID;
+                    $_SESSION["userid"] = $newUserId;
                 }
         }       
             }           

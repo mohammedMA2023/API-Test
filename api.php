@@ -26,25 +26,39 @@ class Db {
         $table = [];
         $raw_data = file_get_contents("php://input");
         $data = json_decode($raw_data, true);
-    
+
         while ($row = $result->fetch_assoc()) {
             $timestampFromDatabase = $row['time'];
             $formattedTime = (new DateTime($timestampFromDatabase))->format('d/m/Y H:i:s');
             $row["time"] = $formattedTime;
-            $table[] = $row;
+            $uid = filter_var($data["uid"], FILTER_VALIDATE_INT);
+                $revId = filter_var($row["review_id"], FILTER_VALIDATE_INT);
+            $res = $this->checkLike($conn,$revId,$uid);
+            if ($res->num_rows > 0){
+
+                $row["like"] = "like";
+
+            }
+            else{
+                $row["like"] = "unlike";
+
+            }
+
+        $table[] = $row;
         }
 
         echo json_encode($table);
-    }
+   }
 
-    function checkLike($revId,$uid){
-        $conn = $this->conn();
+    function checkLike($conn,$rev,$id){
+        $conn = $this->conn;
+
         $selectStmt = $conn->prepare("SELECT * FROM posts WHERE rev = ? AND user = ?");
-        $selectStmt->bind_param("ii", $revId, $uid);
+        $selectStmt->bind_param("ss", $rev, $id);
         $selectStmt->execute();
         $result = $selectStmt->get_result();
-        return $result; 
 
+    return $result;
 
 
 
@@ -63,7 +77,7 @@ class Db {
                 if ($intValue === false || $id === false) {
                     echo "failed";
                 } else {
-                    $result = $this->checkLike($id,$intValue);                   
+                    $result = $this->checkLike($conn,$id,$intValue);
                     if ($result->num_rows > 0) {
                         $stmt = $conn->prepare("DELETE FROM posts WHERE rev = ? AND user = ?");
                         $stmt->bind_param("ii", $id, $intValue);
@@ -87,6 +101,88 @@ class Db {
             }
         }
     }
+    function mesg(){
+       $conn = $this->conn;
+       $raw_data = file_get_contents("php://input");
+       $data = json_decode($raw_data, true);
+
+        $uid = filter_var($data["uid"], FILTER_VALIDATE_INT);
+
+        $message = $data["message"];
+        $username = $data["uname"];
+        $stmt = $conn->prepare("INSERT INTO messages (user_id,message_text,username) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $uid, $message,$username);
+        $stmt->execute();
+
+    }
+  function getMsg() {
+        $conn = $this->conn;
+        $stmt = $conn->prepare("SELECT * FROM messages");
+
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $table = [];
+
+        while ($row = $result->fetch_assoc()) {
+            $timestampFromDatabase = $row['timestamp'];
+            $formattedTime = (new DateTime($timestampFromDatabase))->format('d/m/Y H:i:s');
+            $row["timestamp"] = $formattedTime;
+
+        $table[] = $row;
+        }
+
+        echo json_encode($table);
+   }
+   function getMenu(){
+    $conn = $this->conn;
+    $stmt = $conn->prepare("SELECT * FROM products");
+
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $table = [];
+
+        while ($row = $result->fetch_assoc()) {
+
+        $table[] = $row;
+        }
+
+        echo json_encode($table);
+
+
+   }
+   function basket(){
+    $conn = $this->conn;
+    $raw_data = file_get_contents("php://input");
+       $data = json_decode($raw_data, true);
+
+        $uid = filter_var($data["uid"], FILTER_VALIDATE_INT);
+
+        $items = $data["items"];
+        $listCount = count($items);
+
+    for ($i = 0; $i < $listCount; $i++) {
+    $currItem = $items[$i];
+    // Query with a parameterized statement to select a specific product by product_id
+    $sql = "SELECT * FROM products WHERE product_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $currItem);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    $price = $row ? $row['price'] : null;
+    $stmt->close();
+    $stmt = $conn->prepare("INSERT INTO basket (user_id, product_id, quantity) VALUES (?, ?, ?)");
+    $quantity = 1; // replace with the actual quantity
+    $stmt->bind_param("iii", $uid, $currItem, $quantity);
+    $stmt->execute();
+
+
+    }
+
+
+   }
 }
 
 $db = new Db();
