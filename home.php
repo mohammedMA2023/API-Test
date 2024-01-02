@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
@@ -12,6 +13,22 @@
         <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+            <script "text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+            <script "text/javascript" src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+<style>
+div.slider h2 {
+  text-align: center;
+  background: orange;
+  font-size: 6rem;
+  line-height: 3;
+  margin: 0;
+}
+
+
+
+
+</style>
     </head>
     <body onload="start()">
         
@@ -24,7 +41,12 @@
  <section class="page-section clearfix">
             <div class="container">
                 <div class="intro">
-                    <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="assets/img/intro.jpg" alt="..." />
+                <div class="slider">
+            <div><img src="assets/img/coffee.jpg"></div>
+            <div><img src="assets/img/cake.jpg" title="Fudge cake with chocolate toppings"></div>
+            <div><img src="https://img.jamieoliver.com/home/wp-content/uploads/features-import/2016/04/How_to_make_the_perfect_cup_of_tea_22886_preview-1024x683.jpg" title="A cup of tea"></div>
+                
+        </div>
                     <div class="intro-text left-0 text-center bg-faded p-5 rounded">
                         <h2 class="section-heading mb-4">
                             <span class="section-heading-upper">Fresh Coffee</span>
@@ -67,6 +89,19 @@
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
 
+<script>
+  $('.slider').bxSlider({
+                autoControls: true,
+                auto: true,
+                pager: true,
+                slideWidth: 600,
+                slideHeight: 100,
+                mode: 'fade',
+                captions: true,
+                speed: 1000
+            });
 
+
+</script>
     </body>
 </html>

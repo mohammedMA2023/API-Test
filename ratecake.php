@@ -303,7 +303,7 @@ let revs = document.getElementById("revs");
 function show(){
   let userId = getCookie("userid");
   //alert(userId);
-  fetch('http://192.168.0.203/api/db/query',{
+  fetch('http://10.201.211.204/api/db/query',{
     method: 'POST',
     body: JSON.stringify({uid:parseInt(userId)})
   })
@@ -339,7 +339,7 @@ function l(id,action){
 function like(id) {
   const userIdValue = getCookie("userid");
 
-  fetch('http://192.168.0.203/api/db/like', {
+  fetch('http://10.201.211.204/api/db/like', {
     method: 'POST',
     body: JSON.stringify({ data: id, uid: userIdValue})
   })
