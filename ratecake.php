@@ -113,8 +113,10 @@
 
       background-color: white;
       cursor: pointer;
+    
     }
 
+    
 
     </style>
         <meta charset="utf-8" />
@@ -128,7 +130,9 @@
         <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
-    </head>
+            
+               
+      </head>
     <body onload="show()">
     <?php
         include "header.php";

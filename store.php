@@ -144,7 +144,7 @@
     <script>var items = [];
 
         function getMenu() {
-            fetch("http://192.168.0.203/api/db/getMenu")
+            fetch("http://10.201.211.204/api/db/getMenu")
                 .then(response => response.json())
                 .then(data => displayPopup(data));
         }
@@ -189,7 +189,7 @@
         function order() {
             let userIdValue = getCookie();
             if (items.length > 0) {
-                fetch('http://192.168.0.203/api/db/basket', {
+                fetch('http://10.201.211.204/api/db/basket', {
                     method: 'POST',
                     body: JSON.stringify({ uid: userIdValue, items: items })
                 });

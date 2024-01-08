@@ -24,6 +24,17 @@ div.slider h2 {
   line-height: 3;
   margin: 0;
 }
+.slider img {
+  width: 100%; /* Set width to 100% to fill the parent container */
+  height: auto; /* Automatically adjust height to maintain aspect ratio */
+  object-fit: cover; /* Ensure images cover the entire container without distortion */
+}
+
+.slider div {
+  width: 100%; /* Ensure consistent width for image containers */
+  height:auto; /* Set a fixed height for image containers (adjust as needed) */
+  overflow: hidden; /* Hide any overflowing parts of images */
+}
 
 
 
@@ -41,6 +52,7 @@ div.slider h2 {
  <section class="page-section clearfix">
             <div class="container">
                 <div class="intro">
+                    
                 <div class="slider">
             <div><img src="assets/img/coffee.jpg"></div>
             <div><img src="assets/img/cake.jpg" title="Fudge cake with chocolate toppings"></div>
@@ -94,8 +106,6 @@ div.slider h2 {
                 autoControls: true,
                 auto: true,
                 pager: true,
-                slideWidth: 600,
-                slideHeight: 100,
                 mode: 'fade',
                 captions: true,
                 speed: 1000
